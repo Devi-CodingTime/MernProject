@@ -5,14 +5,14 @@ const cors = require('cors');
 require('./database/dbcon.js');
 
 const productModal = require('./model/productSchema.js');
-app.use(cors({
-  origin:["https://mern-project-wheat.vercel.app"],
-  methods:["POST","GET"],
-  credentials:true
-}
-));
+// app.use(cors({
+//   origin:["https://mern-project-wheat.vercel.app"],
+//   methods:["POST","GET"],
+//   credentials:true
+// }
+// ));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 // get all products
 app.get("/", async(req,res)=>{
