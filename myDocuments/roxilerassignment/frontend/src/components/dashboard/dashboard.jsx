@@ -34,7 +34,7 @@ const Dashboard = () => {
             page:page
           });
           console.log("queryParams",queryParams);
-          const res = await fetch(`https://roxiler-assignment-pi.vercel.app?${queryParams}`, {
+          const res = await fetch(`https://roxiler-assignment-pi.vercel.app/?${queryParams}`, {
             method: "GET",
           });
         const data = await res.json();
