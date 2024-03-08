@@ -6,7 +6,7 @@ require('./database/dbcon.js');
 
 const productModal = require('./model/productSchema.js');
 app.use(cors({
-  origin:[""],
+  origin:["https://mern-project-wheat.vercel.app"],
   methods:["POST","GET"],
   credentials:true
 }
