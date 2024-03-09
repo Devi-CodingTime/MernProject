@@ -5,12 +5,7 @@ const cors = require('cors');
 require('./database/dbcon.js');
 
 const productModal = require('./model/productSchema.js');
-// app.use(cors({
-//   origin:["https://mern-project-wheat.vercel.app"],
-//   methods:["POST","GET"],
-//   credentials:true
-// }
-// ));
+
 app.use(express.json());
 app.use(cors());
 
@@ -21,24 +16,53 @@ app.get("/", async(req,res)=>{
 
 app.get("/productList", async (req, res) => {
 
-  const { search,page} = req.query;
+  const { search,page,month} = req.query;
+  console.log("search",search);
+  console.log("month",month);
+  console.log("page",page);
+
   const pageSize = 10;
-  let products;
-  try {
+  
+  try 
+  {
+    let products = [];
+    const productsArr = await productModal.find();
     if(search)
       {
-         products = await productModal.find({ $or: [ { description: search }, { price: search },{ title: search } ] });
+          products = productsArr.filter(item => {
+          return (
+            item.title.toLowerCase().includes(search.toLowerCase()) ||
+            item.description.toLowerCase().includes(search.toLowerCase()) ||
+            item.price.toString().includes(search)
+          );
+        });
+        const totalPages = Math.ceil(products.length / pageSize);
+        res.json({ products: products, totalPages });
       }
-    else 
+    else if(month)
     {
-        products = await productModal.find();
-    }
-      
+      productsArr.forEach((i)=>{
+       let monthName = new Date(i.dateOfSale).getMonth()+1;
+       if(monthName==month)
+        {
+            products.push(i);
+        }
+      });
+  
       const startIndex = (page - 1) * pageSize;
       const endIndex = page * pageSize;
       const paginatedProducts = products.slice(startIndex, endIndex);
       const totalPages = Math.ceil(products.length / pageSize);
       res.json({ products: paginatedProducts, totalPages });
+    }
+    else
+    {
+      const startIndex = (page - 1) * pageSize;
+      const endIndex = page * pageSize;
+      const paginatedProducts = productsArr.slice(startIndex, endIndex);
+      const totalPages = Math.ceil(productsArr.length / pageSize);
+      res.json({ products: paginatedProducts, totalPages });
+    }
   } 
   catch (err) 
   {
@@ -53,7 +77,8 @@ app.get("/totalSale", async(req, res) => {
 
   const { month, year } = req.query;
 
-  try {
+  try 
+  {
     const allProducts = await productModal.find();
 
     let sum = 0;
@@ -70,7 +95,6 @@ app.get("/totalSale", async(req, res) => {
      else if(monthName==month && yearval==year && i.sold==false)
      {
         notSoldItems.push(i);
-
      }
 
 });
