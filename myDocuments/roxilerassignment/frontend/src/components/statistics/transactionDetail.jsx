@@ -25,7 +25,7 @@ const TransactionDetail = () => {
             month: month,
             year:year
           });
-          const res = await fetch(`http://localhost:5000/totalSale?${queryParams}`, {
+          const res = await fetch(`https://search-api-psi.vercel.app/totalSale?${queryParams}`, {
             method: "GET",
           });
         const data = await res.json();

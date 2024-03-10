@@ -15,7 +15,7 @@ const BarChart = () => {
             const queryParams = new URLSearchParams({
             month: monthValue
           });
-          const res = await fetch(`http://localhost:5000/priceRange?${queryParams}`, {
+          const res = await fetch(`https://search-api-psi.vercel.app/priceRange?${queryParams}`, {
             method: "GET",
           });
             const data = await res.json();
