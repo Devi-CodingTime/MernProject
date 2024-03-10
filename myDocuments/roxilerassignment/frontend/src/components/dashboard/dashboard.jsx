@@ -49,9 +49,10 @@ const Dashboard = () => {
             page:page
           });
         }
-          const res = await fetch(`http://localhost:5000/productList?${queryParams}`, {
+          const res = await fetch(`https://search-api-psi.vercel.app/productList?${queryParams}`, {
             method: "GET",
           });
+          // console.log("url ",`https://search-api-psi.vercel.app/productList?${queryParams}`);
           const data = await res.json();
           console.log(data);
           setProduct(data.products);

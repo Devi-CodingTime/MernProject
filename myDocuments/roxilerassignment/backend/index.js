@@ -9,7 +9,7 @@ const productModal = require('./model/productSchema.js');
 app.use(express.json());
 app.use(cors(
   {
-    origin:[],
+    origin:["http://localhost:3001/"],
     method:["GET"],
     credential:true
   }
@@ -66,6 +66,7 @@ app.get("/productList", async (req, res) => {
       const startIndex = (page - 1) * pageSize;
       const endIndex = page * pageSize;
       const paginatedProducts = productsArr.slice(startIndex, endIndex);
+      console.log("paginatedProducts",paginatedProducts);
       const totalPages = Math.ceil(productsArr.length / pageSize);
       res.json({ products: paginatedProducts, totalPages });
     }
