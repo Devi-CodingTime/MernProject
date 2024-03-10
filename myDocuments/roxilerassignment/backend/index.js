@@ -7,7 +7,13 @@ require('./database/dbcon.js');
 const productModal = require('./model/productSchema.js');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+    origin:[],
+    method:["GET"],
+    credential:true
+  }
+));
 
 // get all products
 app.get("/", async(req,res)=>{
