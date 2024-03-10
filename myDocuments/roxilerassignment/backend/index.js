@@ -9,7 +9,7 @@ const productModal = require('./model/productSchema.js');
 app.use(express.json());
 app.use(cors(
   {
-    origin:["http://localhost:3001","https://mern-project-wheat.vercel.app"],
+    origin:["https://dashboard-three-pink.vercel.app"],
     method:["GET"],
     credential:true
   }
