@@ -62,9 +62,9 @@ const Dashboard = () => {
             console.log(error);
         }
     }
-    useEffect(()=>{
-        productDetail();
-    },[]);
+    // useEffect(()=>{
+    //     productDetail();
+    // },[]);
 
     useEffect(()=>{
       productDetail();
